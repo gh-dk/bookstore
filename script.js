@@ -1,7 +1,6 @@
 function loopBook(bookscollection, parentNode) {
-  var num = 0;
   document.getElementById(parentNode).innerHTML = "";
-  bookscollection.forEach(function (book) {
+  bookscollection.forEach(function (book, index) {
     var structure = `
             <div class="card">
                 <div class="img-box">
@@ -12,11 +11,10 @@ function loopBook(bookscollection, parentNode) {
                 <span class="info">
                     <h3>${book.title}</h3>
                     <p>by : <span>${book.author}</span></p>
-                    <button onclick="openviewpage('${num}')">view</button>
+                    <button onclick="openviewpage('${index}')">view</button>
                 </span>
             </div>
     `;
-    num += 1;
     document.getElementById(parentNode).innerHTML += structure;
   });
 }
