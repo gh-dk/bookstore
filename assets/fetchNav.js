@@ -1,5 +1,5 @@
 async function fetchNav(id) {
-    const fetchNavdat = await fetch('https://gh-dk.github.io/practise/components/nav.html');
+    const fetchNavdat = await fetch('https://gh-dk.github.io/bookstore/components/nav.html');
     const navHTML = await fetchNavdat.text();
     document.getElementById(id).innerHTML = navHTML;
 
