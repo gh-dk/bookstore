@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signup Page</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body class="signup login">
@@ -39,7 +40,7 @@
       </form>
       <div class="img">
         <img
-          src="https://images.unsplash.com/photo-1582721691120-d1db3852893e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGFic3RyYWN0JTIwd2F2ZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60"
+          src="https://images.unsplash.com/photo-1468174482686-1047396f13b3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
         />
       </div>
@@ -47,53 +48,59 @@
 
     <script src="./assets/fetchNav.js"></script>
     <script>
-      document.getElementById("form").addEventListener("submit", function (e) {
-        e.preventDefault();
+      $(document).ready(function () {
+        $("#form").on("submit", function (e) {
+          e.preventDefault();
 
-        let username = document.getElementById("username").value;
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
-        let errorElement = document.getElementById("error");
+          let username = $("#username").val();
+          let email = $("#email").val();
+          let password = $("#password").val();
+          let errorElement = $("#error");
 
-        errorElement.innerHTML = "";
+          errorElement.html("");
 
-        let isUsernameValid = validateUsername(username, errorElement);
-        let isEmailValid = validateEmail(email, errorElement);
-        let isPasswordValid = validatePassword(password, errorElement);
+          let isUsernameValid = validateUsername(username, errorElement);
+          let isEmailValid = validateEmail(email, errorElement);
+          let isPasswordValid = validatePassword(password, errorElement);
 
-        if (isUsernameValid && isEmailValid && isPasswordValid) {
-          alert("Signup successful!");
+          if (isUsernameValid && isEmailValid && isPasswordValid) {
+            alert("Signup successful!");
+          }
+        });
+
+        function validateUsername(username, errorElement) {
+          if (username.length < 3) {
+            errorElement.append(
+              "Username must be at least 3 characters long.<br>"
+            );
+            return false;
+          }
+          return true;
         }
+
+        function validateEmail(email, errorElement) {
+          const emailPattern =
+            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+          if (!emailPattern.test(email)) {
+            errorElement.append("Please enter a valid email address.<br>");
+            return false;
+          }
+          return true;
+        }
+
+        function validatePassword(password, errorElement) {
+          if (password.length < 6) {
+            errorElement.append(
+              "Password must be at least 6 characters long.<br>"
+            );
+            return false;
+          }
+          return true;
+        }
+
+        // Assuming fetchNav is defined in fetchNav.js
+        fetchNav("nav");
       });
-
-      function validateUsername(username, errorElement) {
-        if (username.length < 3) {
-          errorElement.innerHTML +=
-            "Username must be at least 3 characters long.<br>";
-          return false;
-        }
-        return true;
-      }
-
-      function validateEmail(email, errorElement) {
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-          errorElement.innerHTML += "Please enter a valid email address.<br>";
-          return false;
-        }
-        return true;
-      }
-
-      function validatePassword(password, errorElement) {
-        if (password.length < 6) {
-          errorElement.innerHTML +=
-            "Password must be at least 6 characters long.<br>";
-          return false;
-        }
-        return true;
-      }
-
-      fetchNav("nav");
     </script>
   </body>
 </html>
